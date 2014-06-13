@@ -66,7 +66,7 @@ public class QueryGen {
         Query or  = new Query("%s or %s" , LOGIC_PAIRS);
         Query not = new Query("not %s"   , LOGIC_SINGS);
         
-        Query cat = new Query("%s + %s", );
+        Query cat = new Query("%s + %s", STR_PAIRS);
         
         bw.close();
     }
