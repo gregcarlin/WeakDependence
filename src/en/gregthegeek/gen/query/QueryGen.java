@@ -46,7 +46,7 @@ public class QueryGen {
         Query max = new Query("max %s"  , BAGS);
         Query avg = new Query("avg %s"  , BAGS);
         
-        QueryWriter qw = new QueryWriter(new FileWriter(new File(DIR + "test.txt")));
+        QueryWriter qw = new QueryWriter(new FileWriter(new File(DIR + "test.txt")), 10);
         
         qw.write(add);
         
