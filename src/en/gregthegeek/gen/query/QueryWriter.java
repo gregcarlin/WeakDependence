@@ -10,13 +10,13 @@ public class QueryWriter extends BufferedWriter {
     public QueryWriter(Writer out, int tests) throws IOException {
         super(out);
         this.tests = tests;
-        init();
+        //init();
     }
 
     public QueryWriter(Writer out, int tests, int sz) throws IOException {
         super(out, sz);
         this.tests = tests;
-        init();
+        //init();
     }
     
     private final void init() throws IOException {
