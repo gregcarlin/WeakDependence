@@ -46,11 +46,20 @@ public class QueryGen {
         Query max = new Query("max %s"  , BAGS);
         Query avg = new Query("avg %s"  , BAGS);
         
-        QueryWriter qw = new QueryWriter(new FileWriter(new File(DIR + "test.txt")), 10);
+        // TODO more
         
+        /*QueryWriter qw = new QueryWriter(new FileWriter(new File(DIR + "test.txt")), 10);
         qw.write(add);
+        qw.close();*/
         
-        qw.close();
+        final Query[]  queries = {  add,   sub,   mul,   div,   mod,   neg,   and,   or,   not,   cat,   eqNum,   eqStr,   neqNum,   neqStr,   gr,   ls,   gre,   lse,   now,   dform,   sum,   cnt,   min,   max,   avg};
+        final String[] names   = {"add", "sub", "mul", "div", "mod", "neg", "and", "or", "not", "cat", "eqNum", "eqStr", "neqNum", "neqStr", "gr", "ls", "gre", "lse", "now", "dform", "sum", "cnt", "min", "max", "avg"};
+        assert queries.length == names.length;
         
+        for(int i=0; i<queries.length; i++) {
+            QueryWriter qw = new QueryWriter(new FileWriter(DIR + names[i] + ".txt"), 10);
+            qw.write(queries[i]);
+            qw.close();
+        }
     }
 }
