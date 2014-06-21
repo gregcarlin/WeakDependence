@@ -82,23 +82,29 @@ public class QueryGen {
         p("max", max);
         p("avg", avg);
         
-        Query bag    = new Query("bag(%s)"    , STRUCT_SINGS);
-        Query union  = new Query("%s union %s", STRUCT_PAIRS);
-        Query struct = new Query("struct(%s)" , STRUCT_SINGS);
-        Query comma  = new Query("%s"         , STRUCT_SINGS);
+        Query bag    = new Query("bag(%s)"              , STRUCT_SINGS);
+        Query union  = new Query("bag(%s) union bag(%s)", STRUCT_PAIRS);
+        Query struct = new Query("struct(%s)"           , STRUCT_SINGS);
+        Query comma  = new Query("%s"                   , STRUCT_SINGS);
         
         p("bag"   , bag);
         p("union" , union);
         p("struct", struct);
         p("comma" , comma);
         
-        //Query subtract = new Query("%s subtract %s", STRUCT_PAIRS); // TODO: figure out syntax
-        // TODO in
-        // TODO contains
-        // TODO intersect
-        // TODO unique eg. unique(1,2,2,4) -> 1 2 2 4
+        Query subtract  = new Query("bag(%s) subtract bag(%s)" , STRUCT_PAIRS);
+        Query in        = new Query("63 in bag(%s)"            , STRUCT_SINGS);
+        Query contains  = new Query("bag(%s) contains 63"      , STRUCT_SINGS);
+        Query intersect = new Query("bag(%s) intersect bag(%s)", STRUCT_PAIRS);
+        Query unique    = new Query("unique(bag(%s))"          , STRUCT_SINGS);
+        
+        p("subtract" , subtract);
+        p("in"       , in);
+        p("contains" , contains);
+        p("intersect", intersect);
+        p("unique"   , unique);
+        
         // TODO uniqueref
-        // TODO distinct
         // TODO exists
         
         // TODO projection (dot)
