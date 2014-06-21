@@ -4,15 +4,16 @@ public class Constants {
     protected static final String TRUE  = "true";
     protected static final String FALSE = "false";
     
-    protected static final Object[][] NULL        = new Object[   1][0];
-    protected static final Object[][] NUM_PAIRS   = new Object[2048][2];
-    protected static final Object[][] NUM_SINGS   = new Object[2048][1];
-    protected static final Object[][] LOGIC_PAIRS = new Object[   4][2];
-    protected static final Object[][] LOGIC_SINGS = new Object[   2][1];
-    protected static final Object[][] STR_PAIRS   = new Object[2048][2];
-    protected static final Object[][] STR_SINGS   = new Object[2048][1];
-    protected static final Object[][] DATE_OPTS   = new Object[   4][1];
-    protected static final Object[][] STRUCTS     = new Object[2048][1];
+    protected static final Object[][] NULL         = new Object[   1][0];
+    protected static final Object[][] NUM_PAIRS    = new Object[2048][2];
+    protected static final Object[][] NUM_SINGS    = new Object[2048][1];
+    protected static final Object[][] LOGIC_PAIRS  = new Object[   4][2];
+    protected static final Object[][] LOGIC_SINGS  = new Object[   2][1];
+    protected static final Object[][] STR_PAIRS    = new Object[2048][2];
+    protected static final Object[][] STR_SINGS    = new Object[2048][1];
+    protected static final Object[][] DATE_OPTS    = new Object[   4][1];
+    protected static final Object[][] STRUCT_SINGS = new Object[2048][1];
+    protected static final Object[][] STRUCT_PAIRS = new Object[2048][2];
     
     static {
         for(int i=0; i<NUM_PAIRS.length; i++) {
@@ -52,9 +53,16 @@ public class Constants {
         DATE_OPTS[3][0] = "\"full\"";
         
         StringBuilder sbBags = new StringBuilder();
-        for(int i=0; i<STRUCTS.length; i++) {
+        for(int i=0; i<STRUCT_SINGS.length; i++) {
             sbBags.append(i).append(", ");
-            STRUCTS[i] = new Object[] {sbBags.substring(0, sbBags.length() - 2)};
+            STRUCT_SINGS[i] = new Object[] {sbBags.substring(0, sbBags.length() - 2)};
+        }
+        
+        StringBuilder sbStructPairs = new StringBuilder();
+        for(int i=0; i<STRUCT_PAIRS.length; i++) {
+            STRUCT_PAIRS[i][0] = "1,2,3";
+            sbStructPairs.append(i).append(", ");
+            STRUCT_PAIRS[i][1] = sbStructPairs.substring(0, sbStructPairs.length() - 2);
         }
     }
 }
