@@ -40,26 +40,29 @@ public class QueryGen {
         Query now   = new Query("now()");
         Query dform = new Query("dateprec(1900-01-01, %s)", DATE_OPTS);
         
-        Query sum = new Query("sum %s"  , BAGS);
-        Query cnt = new Query("count %s", BAGS);
-        Query min = new Query("min %s"  , BAGS);
-        Query max = new Query("max %s"  , BAGS);
-        Query avg = new Query("avg %s"  , BAGS);
+        Query sum = new Query("sum %s"  , STRUCTS);
+        Query cnt = new Query("count %s", STRUCTS);
+        Query min = new Query("min %s"  , STRUCTS);
+        Query max = new Query("max %s"  , STRUCTS);
+        Query avg = new Query("avg %s"  , STRUCTS);
         
         // TODO more
-        
-        /*QueryWriter qw = new QueryWriter(new FileWriter(new File(DIR + "test.txt")), 10);
-        qw.write(add);
-        qw.close();*/
         
         final Query[]  queries = {  add,   sub,   mul,   div,   mod,   neg,   and,   or,   not,   cat,   eqNum,   eqStr,   neqNum,   neqStr,   gr,   ls,   gre,   lse,   now,   dform,   sum,   cnt,   min,   max,   avg};
         final String[] names   = {"add", "sub", "mul", "div", "mod", "neg", "and", "or", "not", "cat", "eqNum", "eqStr", "neqNum", "neqStr", "gr", "ls", "gre", "lse", "now", "dform", "sum", "cnt", "min", "max", "avg"};
         assert queries.length == names.length;
         
+        BufferedWriter bw = new BufferedWriter(new FileWriter(DIR + "all.txt"));
         for(int i=0; i<queries.length; i++) {
-            QueryWriter qw = new QueryWriter(new FileWriter(DIR + names[i] + ".txt"), 10);
+            String fileName = names[i] + ".txt";
+            
+            QueryWriter qw = new QueryWriter(new FileWriter(DIR + fileName), 10, names[i]);
             qw.write(queries[i]);
             qw.close();
+            
+            bw.write("batch " + fileName);
+            bw.newLine();
         }
+        bw.close();
     }
 }

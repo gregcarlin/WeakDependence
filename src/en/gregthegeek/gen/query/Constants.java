@@ -1,10 +1,10 @@
 package en.gregthegeek.gen.query;
 
 public class Constants {
-    protected static final String TRUE  = "\"true\"";
-    protected static final String FALSE = "\"false\"";
+    protected static final String TRUE  = "true";
+    protected static final String FALSE = "false";
     
-    protected static final Object[][] NULL        = new Object[   0][0];
+    protected static final Object[][] NULL        = new Object[   1][0];
     protected static final Object[][] NUM_PAIRS   = new Object[2048][2];
     protected static final Object[][] NUM_SINGS   = new Object[2048][1];
     protected static final Object[][] LOGIC_PAIRS = new Object[   4][2];
@@ -12,7 +12,7 @@ public class Constants {
     protected static final Object[][] STR_PAIRS   = new Object[2048][2];
     protected static final Object[][] STR_SINGS   = new Object[2048][1];
     protected static final Object[][] DATE_OPTS   = new Object[   4][1];
-    protected static final Object[][] BAGS        = new Object[2048][1];
+    protected static final Object[][] STRUCTS     = new Object[2048][1];
     
     static {
         for(int i=0; i<NUM_PAIRS.length; i++) {
@@ -39,22 +39,22 @@ public class Constants {
         LOGIC_SINGS[0][0] = TRUE;
         LOGIC_SINGS[1][0] = FALSE;
         
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder("\"");
         for(int i=0; i<STR_PAIRS.length; i++) {
-            STR_PAIRS[i][0] = "asdf";
+            STR_PAIRS[i][0] = "\"asdf\"";
             sb.append((char) (((i + 1) % 26) + 97));
-            STR_PAIRS[i][1] = sb.toString();
+            STR_PAIRS[i][1] = sb.toString() + "\"";
         }
         
-        DATE_OPTS[0][0] = "low";
-        DATE_OPTS[1][0] = "medium";
-        DATE_OPTS[2][0] = "high";
-        DATE_OPTS[3][0] = "full";
+        DATE_OPTS[0][0] = "\"low\"";
+        DATE_OPTS[1][0] = "\"medium\"";
+        DATE_OPTS[2][0] = "\"high\"";
+        DATE_OPTS[3][0] = "\"full\"";
         
         StringBuilder sbBags = new StringBuilder();
-        for(int i=0; i<BAGS.length; i++) {
+        for(int i=0; i<STRUCTS.length; i++) {
             sbBags.append(i).append(", ");
-            BAGS[i] = new Object[] {sbBags.substring(0, sbBags.length() - 2)};
+            STRUCTS[i] = new Object[] {sbBags.substring(0, sbBags.length() - 2)};
         }
     }
 }

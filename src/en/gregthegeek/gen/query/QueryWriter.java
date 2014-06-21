@@ -6,17 +6,20 @@ import java.io.Writer;
 
 public class QueryWriter extends BufferedWriter {
     private final int tests;
+    private final String prefix;
 
-    public QueryWriter(Writer out, int tests) throws IOException {
+    public QueryWriter(Writer out, int tests, String prefix) throws IOException {
         super(out);
         this.tests = tests;
-        //init();
+        this.prefix = prefix;
+        init();
     }
 
-    public QueryWriter(Writer out, int tests, int sz) throws IOException {
+    public QueryWriter(Writer out, int tests, String prefix, int sz) throws IOException {
         super(out, sz);
         this.tests = tests;
-        //init();
+        this.prefix = prefix;
+        init();
     }
     
     private final void init() throws IOException {
@@ -50,7 +53,7 @@ public class QueryWriter extends BufferedWriter {
     
     public void write(Query q) throws IOException {
         for(String line : q.getLines()) {
-            writeln("benchmark " + tests + " "+ line);
+            writeln("benchmark " + tests + " " + prefix + ":" + line);
         }
     }
 }
