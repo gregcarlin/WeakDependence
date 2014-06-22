@@ -8,7 +8,7 @@ import org.jsoup.nodes.*;
 import org.jsoup.select.*;
 
 public class FirstNameCollector {
-    private static final String DIR = "/Users/greg/Documents/School/Science_Research/ODRA_enums_mbleja/greg/data_sources/";
+    protected static final String DIR = "/Users/greg/Documents/School/Science_Research/workspace/ODRA_enums_mbleja/greg/data_sources/";
     
     public static void main(String[] args) {
         try {

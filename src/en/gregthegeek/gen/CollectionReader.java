@@ -39,4 +39,8 @@ public class CollectionReader {
         
         return items.get(rand.nextInt(len));
     }
+    
+    public String[] getAllLines() {
+        return items.toArray(new String[0]);
+    }
 }

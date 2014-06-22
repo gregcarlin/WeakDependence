@@ -1,58 +1,81 @@
 package en.gregthegeek.gen;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Random;
 
+import en.gregthegeek.util.BufferedWriter;
+
 public class DataGenerator {
-    //private static final String DIR = "/Users/greg/Documents/School/Science_Research/ODRA_enums_mbleja/greg/";
-	private static final String DIR = "E:\\\\School\\Science_Research\\ODRA_enums_mbleja\\greg\\";
-    private static final String DIR_DATA = DIR + "data_sources/";
-	
+    private static final String DIR_BASE = "/Users/greg/Documents/School/Science_Research/workspace/ODRA_enums_mbleja/greg/";
+    private static final String DIR_DATA = DIR_BASE + "data_sources/";
+    private static final String DIR_OUT  = DIR_BASE + "queries/schemas_and_data/";
+    
     public static void main(String[] args) {
-	    File out = new File(DIR + "sample_data.txt");
-	    CollectionReader male = new CollectionReader(DIR_DATA + "male_names.txt");
+        try {
+            writeDepts();
+            writeEmps(100);
+            writeEmps(1000);
+            writeEmps(10000);
+            writeEmps(100000);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+	
+    public static final void writeEmps(int amt) throws IOException {
+	    File out = new File(DIR_OUT + "emps-" + amt + ".txt");
+	    
+	    CollectionReader male   = new CollectionReader(DIR_DATA + "male_names.txt");
 	    CollectionReader female = new CollectionReader(DIR_DATA + "female_names.txt");
+	    CollectionReader last   = new CollectionReader(DIR_DATA + "last_names.txt");
+	    CollectionReader depts  = new CollectionReader(DIR_DATA + "department_names.txt");
+	    
 	    Random rand = new Random();
-	    try {
-	        BufferedWriter bw = new BufferedWriter(new FileWriter(out));
-	        
-	        bw.write("create permanent Dept(\"test\" as dname)");
-	        bw.newLine();
-	        
-	        for(int i=0; i<100; i++) {
-	            boolean isMale = rand.nextBoolean();
-	            String fName = (isMale ? male : female).getRandomLine(); // love this syntax
-	            String lname = "Smith";
-	            String gender = isMale ? "M" : "F";
-	            String pos = null;
-	            switch(rand.nextInt(3)) {
-	            default:
-	            	assert false;
-	            	break;
-	            case 0:
-	            	pos = "P";
-	            	break;
-	            case 1:
-	            	pos = "E";
-	            	break;
-	            case 2:
-	            	pos = "T";
-	            	break;
-	            }
-	            assert pos != null;
-	            bw.write(String.format("create permanent Emp(\"%s\" as fName, \"%s\" as lname, enum_gender.%s as sex, %s as birthday, %s as hire_date, %f as sal, enum_pos.%s as position, ref(Dept where dname = \"test\") as works_in);", fName, lname, gender, getRandDate(rand), getRandDate(rand), rand.nextFloat() * 2000, pos));
-	            bw.newLine();
-	        }
-	        
-	        bw.close();
-	    } catch (IOException e) {
-	        e.printStackTrace();
-	    }
+        BufferedWriter bw = new BufferedWriter(new FileWriter(out));
+        
+        for(int i=0; i<amt; i++) {
+            boolean isMale = rand.nextBoolean();
+            String fName = (isMale ? male : female).getRandomLine(); // love this syntax
+            String lname = last.getRandomLine();
+            String gender = isMale ? "M" : "F";
+            String pos = null;
+            switch(rand.nextInt(3)) {
+            default:
+            	assert false;
+            	break;
+            case 0:
+            	pos = "P";
+            	break;
+            case 1:
+            	pos = "E";
+            	break;
+            case 2:
+            	pos = "T";
+            	break;
+            }
+            assert pos != null;
+            String dept = depts.getRandomLine();
+            bw.write(String.format("create permanent Emp(\"%s\" as fName, \"%s\" as lname, enum_gender.%s as sex, %s as birthday, %s as hire_date, %f as sal, enum_pos.%s as position, ref(Dept where dname = \"%s\") as works_in);", fName, lname, gender, getRandDate(rand), getRandDate(rand), rand.nextFloat() * 2000, pos, dept));
+            bw.newLine();
+        }
+        
+        bw.close();
 	}
+    
+    public static final void writeDepts() throws IOException {
+        CollectionReader depts  = new CollectionReader(DIR_DATA + "department_names.txt");
+        BufferedWriter bw = new BufferedWriter(new FileWriter(DIR_OUT + "depts.txt"));
+        
+        for(String line : depts.getAllLines()) {
+            bw.write(String.format("create permanent Dept(\"%s\" as dname);", line));
+            bw.newLine();
+        }
+        
+        bw.close();
+    }
     
     private static final String getRandDate(Random rand) {
     	int year = rand.nextInt(40) + 1970;
