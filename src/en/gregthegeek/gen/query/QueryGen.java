@@ -68,7 +68,7 @@ public class QueryGen {
         p("as"     , as);
         p("groupas", groupas);
         
-        Query now   = new Query("now()"); // TODO check runtime based on time of day
+        Query now   = new Query("now()"); // check runtime based on time of day?
         Query dform = new Query("dateprec(1900-01-01, %s)", DATE_OPTS);
         
         p("now", now);
@@ -135,10 +135,16 @@ public class QueryGen {
         p("orderbyDate", orderbyDate);
         p("orderbyStr" , orderbyStr);
         
-        // TODO closeby
-        // TODO leavesby
-        // TODO closeuniqueby
-        // TODO leavesuniqueby
+        // test on depth/breadth?
+        Query closeBy   = new Query("(bag(%s)) close by (component.leadsTo.Part)"       , PART_STRUCT_SINGS);
+        Query leavesBy  = new Query("(bag(%s)) leaves by (component.leadsTo.Part)"      , PART_STRUCT_SINGS);
+        Query closeUBy  = new Query("(bag(%s)) close unique by (component.leadsTo.Part" , PART_STRUCT_SINGS);
+        Query leavesUBy = new Query("(bag(%s)) leaves unique by (component.leadsTo.Part", PART_STRUCT_SINGS);
+        
+        p("closeby"       , closeBy);
+        p("leavesby"      , leavesBy);
+        p("closeuniqueby" , closeUBy);
+        p("leavesuniqueby", leavesUBy);
         
         Query ref   = new Query("ref(bag(%s))"  , EMP_STRUCT_SINGS);
         Query deref = new Query("deref(bag(%s))", EMP_STRUCT_SINGS);

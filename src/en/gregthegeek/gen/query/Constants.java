@@ -16,7 +16,8 @@ public class Constants {
     protected static final Object[][] STRUCT_SINGS = new Object[2048][1];
     protected static final Object[][] STRUCT_PAIRS = new Object[2048][2];
     
-    protected static final Object[][] EMP_STRUCT_SINGS = new Object[2048][1];
+    protected static final Object[][] EMP_STRUCT_SINGS  = new Object[2048][1];
+    protected static final Object[][] PART_STRUCT_SINGS = new Object[2048][1];
     
     static {
         for(int i=0; i<NUM_PAIRS.length; i++) {
@@ -76,6 +77,12 @@ public class Constants {
         for(int i=0; i<EMP_STRUCT_SINGS.length; i++) {
             sbEmpSings.append("Emp[").append(i).append("], ");
             EMP_STRUCT_SINGS[i] = new Object[] {sbEmpSings.substring(0, sbEmpSings.length() - 2)};
+        }
+        
+        StringBuilder sbPartSings = new StringBuilder();
+        for(int i=0; i<PART_STRUCT_SINGS.length; i++) {
+            sbPartSings.append("Part[").append(i).append("], ");
+            PART_STRUCT_SINGS[i] = new Object[] {sbPartSings.substring(0, sbPartSings.length() - 2)};
         }
     }
 }
