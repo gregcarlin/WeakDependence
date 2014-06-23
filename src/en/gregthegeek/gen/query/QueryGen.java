@@ -59,10 +59,17 @@ public class QueryGen {
         p("gre", gre);
         p("lse", lse);
         
-        // TODO <str> ~~ <regex>
-        // TODO <str> !~ <regex>
+        Query regexSing  = new Query("%s ~~ %s", STR_REGEX_SING);
+        Query regexMult  = new Query("%s ~~ %s", STR_REGEX_MULT);
+        Query nRegexSing = new Query("%s !~ %s", STR_REGEX_SING);
+        Query nRegexMult = new Query("%s !~ %s", STR_REGEX_MULT);
         
-        Query as = new Query("bag(%s) as x", STRUCT_SINGS);
+        p("regexSing" , regexSing);
+        p("regexMult" , regexMult);
+        p("nRegexSing", nRegexSing);
+        p("nRegexMult", nRegexMult);
+        
+        Query as      = new Query("bag(%s) as x"     , STRUCT_SINGS);
         Query groupas = new Query("bag(%s) groupas x", STRUCT_SINGS);
         
         p("as"     , as);

@@ -16,8 +16,12 @@ public class Constants {
     protected static final Object[][] STRUCT_SINGS = new Object[2048][1];
     protected static final Object[][] STRUCT_PAIRS = new Object[2048][2];
     
-    protected static final Object[][] EMP_STRUCT_SINGS  = new Object[2048][1];
-    protected static final Object[][] PART_STRUCT_SINGS = new Object[2048][1];
+    protected static final Object[][] EMP_STRUCT_SINGS  = new Object[1024][1];
+    protected static final Object[][] PART_STRUCT_SINGS = new Object[1024][1];
+    
+    private   static final String     LONG_STRING; // used in regex cases
+    protected static final Object[][] STR_REGEX_SING = new Object[1024][2]; // uses _
+    protected static final Object[][] STR_REGEX_MULT = new Object[1024][2]; // uses %
     
     static {
         for(int i=0; i<NUM_PAIRS.length; i++) {
@@ -51,7 +55,7 @@ public class Constants {
         StringBuilder sb = new StringBuilder("\"");
         for(int i=0; i<STR_PAIRS.length; i++) {
             STR_PAIRS[i][0] = "\"asdf\"";
-            sb.append((char) (((i + 1) % 26) + 97));
+            sb.append(getChar(i));
             STR_PAIRS[i][1] = sb.toString() + "\"";
         }
         
@@ -84,5 +88,36 @@ public class Constants {
             sbPartSings.append("Part[").append(i).append("], ");
             PART_STRUCT_SINGS[i] = new Object[] {sbPartSings.substring(0, sbPartSings.length() - 2)};
         }
+        
+        StringBuilder sbRegexStr = new StringBuilder("\"");
+        for(int i=0; i<128; i++) { // 128 is arbitrary
+            sbRegexStr.append(getChar(i));
+        }
+        sbRegexStr.append('"');
+        LONG_STRING = sbRegexStr.toString();
+        
+        StringBuilder sbRegexSing = new StringBuilder("\"");
+        for(int i=0; i<STR_REGEX_SING.length; i++) {
+            sbRegexSing.append(i % 2 == 0 ? getChar(i) : '_');
+            STR_REGEX_SING[i][0] = LONG_STRING;
+            STR_REGEX_SING[i][1] = sbRegexSing.toString() + "\"";
+        }
+        
+        StringBuilder sbRegexMult = new StringBuilder("\"");
+        for(int i=0; i<STR_REGEX_MULT.length; i++) {
+            sbRegexMult.append(i % 3 == 0 ? '%' : getChar(i));
+            STR_REGEX_MULT[i][0] = LONG_STRING;
+            STR_REGEX_MULT[i][1] = sbRegexMult.toString() + "\"";
+        }
+    }
+    
+    /**
+     * Converts a 0-based index to a lowercase character
+     * 
+     * @param i The index of the character. a = 0; z = 25
+     * @return The char corresponding with the index.
+     */
+    public static char getChar(int i) {
+        return (char) ((i % 26) + 97);
     }
 }
