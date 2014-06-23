@@ -7,6 +7,7 @@ public class Constants {
     protected static final Object[][] NULL         = new Object[   1][0];
     protected static final Object[][] NUM_PAIRS    = new Object[2048][2];
     protected static final Object[][] NUM_SINGS    = new Object[2048][1];
+    protected static final Object[][] NUM_SINGS_P  = new Object[1024][1];
     protected static final Object[][] LOGIC_PAIRS  = new Object[   4][2];
     protected static final Object[][] LOGIC_SINGS  = new Object[   2][1];
     protected static final Object[][] STR_PAIRS    = new Object[2048][2];
@@ -14,6 +15,8 @@ public class Constants {
     protected static final Object[][] DATE_OPTS    = new Object[   4][1];
     protected static final Object[][] STRUCT_SINGS = new Object[2048][1];
     protected static final Object[][] STRUCT_PAIRS = new Object[2048][2];
+    
+    protected static final Object[][] EMP_STRUCT_SINGS = new Object[2048][1];
     
     static {
         for(int i=0; i<NUM_PAIRS.length; i++) {
@@ -23,6 +26,10 @@ public class Constants {
         
         for(int i=0; i<NUM_SINGS.length; i++) {
             NUM_SINGS[i][0] = i - 1024;
+        }
+        
+        for(int i=0; i<NUM_SINGS_P.length; i++) {
+            NUM_SINGS_P[i][0] = i;
         }
         
         LOGIC_PAIRS[0][0] = TRUE;
@@ -63,6 +70,12 @@ public class Constants {
             STRUCT_PAIRS[i][0] = "1,2,3";
             sbStructPairs.append(i).append(", ");
             STRUCT_PAIRS[i][1] = sbStructPairs.substring(0, sbStructPairs.length() - 2);
+        }
+        
+        StringBuilder sbEmpSings = new StringBuilder();
+        for(int i=0; i<EMP_STRUCT_SINGS.length; i++) {
+            sbEmpSings.append("Emp[").append(i).append("], ");
+            EMP_STRUCT_SINGS[i] = new Object[] {sbEmpSings.substring(0, sbEmpSings.length() - 2)};
         }
     }
 }

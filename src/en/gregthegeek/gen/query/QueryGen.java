@@ -61,8 +61,12 @@ public class QueryGen {
         
         // TODO <str> ~~ <regex>
         // TODO <str> !~ <regex>
-        // TODO <x> as <y>
-        // TODO <x> groupas <y>
+        
+        Query as = new Query("bag(%s) as x", STRUCT_SINGS);
+        Query groupas = new Query("bag(%s) groupas x", STRUCT_SINGS);
+        
+        p("as"     , as);
+        p("groupas", groupas);
         
         Query now   = new Query("now()"); // TODO check runtime based on time of day
         Query dform = new Query("dateprec(1900-01-01, %s)", DATE_OPTS);
@@ -104,11 +108,53 @@ public class QueryGen {
         p("intersect", intersect);
         p("unique"   , unique);
         
-        // TODO uniqueref
+        Query uniqueref = new Query("uniqueref(bag(%s))", EMP_STRUCT_SINGS);
         // TODO exists
         
-        // TODO projection (dot)
-        // TODO continue
+        p("uniqueref", uniqueref);
+        
+        Query dot     = new Query("bag(%s).sal"                    , EMP_STRUCT_SINGS);
+        Query join    = new Query("bag(Emp[1],Emp[2]) join bag(%s)", EMP_STRUCT_SINGS);
+        // TODO where
+        Query forall  = new Query("forall(bag(%s) as x) (x < 63)"  , STRUCT_SINGS);
+        Query forsome = new Query("forsome(bag(%s) as x) (x < 63)" , STRUCT_SINGS);
+        
+        p("dot"    , dot);
+        p("join"   , join);
+        //p("where"  , where);
+        p("forall" , forall);
+        p("forsome", forsome);
+        
+        Query orderbyNum  = new Query("bag(%s) orderby sal"     , EMP_STRUCT_SINGS);
+        Query orderbyEnum = new Query("bag(%s) orderby position", EMP_STRUCT_SINGS);
+        Query orderbyDate = new Query("bag(%s) orderby birthday", EMP_STRUCT_SINGS);
+        Query orderbyStr  = new Query("bag(%s) orderby lname"   , EMP_STRUCT_SINGS);
+        
+        p("orderbyNum" , orderbyNum);
+        p("orderbyEnum", orderbyEnum);
+        p("orderbyDate", orderbyDate);
+        p("orderbyStr" , orderbyStr);
+        
+        // TODO closeby
+        // TODO leavesby
+        // TODO closeuniqueby
+        // TODO leavesuniqueby
+        
+        Query ref   = new Query("ref(bag(%s))"  , EMP_STRUCT_SINGS);
+        Query deref = new Query("deref(bag(%s))", EMP_STRUCT_SINGS);
+        
+        p("ref"  , ref);
+        p("deref", deref);
+        
+        // TODO if then else
+        
+        Query indexBag = new Query("(bag(%s))[1]", EMP_STRUCT_SINGS);
+        Query indexNum = new Query("(bag(" + EMP_STRUCT_SINGS[EMP_STRUCT_SINGS.length-1] + "))[%d]", NUM_SINGS_P);
+        Query rangeas  = new Query("bag(%s) rangeas x", EMP_STRUCT_SINGS);
+        
+        p("indexBag", indexBag);
+        p("indexNum", indexNum);
+        p("rangeas" , rangeas);
         
         BufferedWriter bw = new BufferedWriter(new FileWriter(DIR + "all.txt"));
         for(Entry<String,Query> e : queries.entrySet()) {
