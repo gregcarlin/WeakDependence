@@ -117,10 +117,11 @@ public class QueryGen {
         p("intersect", intersect);
         p("unique"   , unique);
         
-        Query uniqueref = new Query("uniqueref(bag(%s))", EMP_STRUCT_SINGS);
-        // TODO exists
+        Query uniqueref = new Query("uniqueref(bag(%s))"   , EMP_STRUCT_SINGS);
+        Query exists    = new Query("(bag(%s)).exists(sal)", EMP_STRUCT_SINGS);
         
         p("uniqueref", uniqueref);
+        p("exists"   , exists);
         
         Query dot     = new Query("bag(%s).sal"                    , EMP_STRUCT_SINGS);
         Query join    = new Query("bag(Emp[1],Emp[2]) join bag(%s)", EMP_STRUCT_SINGS);
