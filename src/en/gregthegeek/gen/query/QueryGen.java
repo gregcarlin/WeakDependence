@@ -9,7 +9,8 @@ import java.util.Map.Entry;
 import en.gregthegeek.util.BufferedWriter;
 
 public class QueryGen {
-    private static final String DIR = "/Users/greg/Documents/School/Science_Research/workspace/ODRA_enums_mbleja/greg/queries/";
+    private static final String DIR   = "/Users/greg/Documents/School/Science_Research/workspace/ODRA_enums_mbleja/greg/queries/";
+    private static final int    TESTS = 100;
     
     private static final HashMap<String,Query> queries = new HashMap<String,Query>();
     
@@ -125,13 +126,13 @@ public class QueryGen {
         
         Query dot     = new Query("bag(%s).sal"                    , EMP_STRUCT_SINGS);
         Query join    = new Query("bag(Emp[1],Emp[2]) join bag(%s)", EMP_STRUCT_SINGS);
-        // TODO where
+        Query where   = new Query("Emp where %s"                   , WHERE_ARGS);
         Query forall  = new Query("forall(bag(%s) as x) (x < 63)"  , STRUCT_SINGS);
         Query forsome = new Query("forsome(bag(%s) as x) (x < 63)" , STRUCT_SINGS);
         
         p("dot"    , dot);
         p("join"   , join);
-        //p("where"  , where);
+        p("where"  , where);
         p("forall" , forall);
         p("forsome", forsome);
         
@@ -181,7 +182,7 @@ public class QueryGen {
             String name = e.getKey();
             String fileName = name + ".txt";
             
-            QueryWriter qw = new QueryWriter(DIR + fileName, 10, name);
+            QueryWriter qw = new QueryWriter(DIR + fileName, TESTS, name);
             qw.write(e.getValue());
             qw.close();
             

@@ -23,6 +23,9 @@ public class Constants {
     protected static final Object[][] STR_REGEX_SING = new Object[1024][2]; // uses _
     protected static final Object[][] STR_REGEX_MULT = new Object[1024][2]; // uses %
     
+    private   static final String[]   WHERE_CONDS = {"hire_date > 1980-01-01", "sal > 500", "position = \"tester\"", "sex = \"female\"", "lname = \"Brooks\"", "fName = \"Ava\""};
+    protected static final Object[][] WHERE_ARGS  = new Object[WHERE_CONDS.length][1];
+    
     static {
         for(int i=0; i<NUM_PAIRS.length; i++) {
             NUM_PAIRS[i][0] = 63;
@@ -108,6 +111,12 @@ public class Constants {
             sbRegexMult.append(i % 3 == 0 ? '%' : getChar(i));
             STR_REGEX_MULT[i][0] = LONG_STRING;
             STR_REGEX_MULT[i][1] = sbRegexMult.toString() + "\"";
+        }
+        
+        StringBuilder sbWhere = new StringBuilder();
+        for(int i=0; i<WHERE_ARGS.length; i++) {
+            sbWhere.append(WHERE_CONDS[i]).append(" and ");
+            WHERE_ARGS[i][0] = sbWhere.substring(0, sbWhere.length() - 5);
         }
     }
     
