@@ -163,10 +163,12 @@ public class QueryGen {
         p("ref"  , ref);
         p("deref", deref);
         
-        // TODO if then else
+        Query conditional = new Query("if %s then \"a\" else \"b\"", WHERE_ARGS);
+        
+        p("condition", conditional);
         
         Query indexBag = new Query("(bag(%s))[1]", EMP_STRUCT_SINGS);
-        Query indexNum = new Query("(bag(" + EMP_STRUCT_SINGS[EMP_STRUCT_SINGS.length-1] + "))[%d]", NUM_SINGS_P);
+        Query indexNum = new Query("(bag(" + EMP_STRUCT_SINGS[EMP_STRUCT_SINGS.length-1][0] + "))[%d]", NUM_SINGS_P);
         Query rangeas  = new Query("bag(%s) rangeas x", EMP_STRUCT_SINGS);
         
         p("indexBag", indexBag);
