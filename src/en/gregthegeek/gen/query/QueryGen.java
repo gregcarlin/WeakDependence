@@ -182,7 +182,7 @@ public class QueryGen {
         write(queriesPartData, "PartMod");
         
         BufferedWriter all = new BufferedWriter(DIR + "all.txt");
-        all.writelns("batch all-none.txt", "batch all-WeakDependMod.txt", "batch all-PartMod.txt");
+        all.writelns("$encoding = utf-8", "", "batch all-none.txt", "batch all-WeakDependMod.txt", "batch all-PartMod.txt");
         all.close();
     }
     
