@@ -43,4 +43,10 @@ public class BufferedWriter extends java.io.BufferedWriter {
     public void writelnf(String format, Object... args) throws IOException {
         writeln(String.format(format, args));
     }
+    
+    public void writelns(String... lines) throws IOException {
+        for(String line : lines) {
+            writeln(line);
+        }
+    }
 }
