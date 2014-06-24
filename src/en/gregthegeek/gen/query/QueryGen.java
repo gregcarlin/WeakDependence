@@ -2,9 +2,11 @@ package en.gregthegeek.gen.query;
 
 import static en.gregthegeek.gen.query.Constants.*;
 
-import java.io.*;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map.Entry;
+
+import en.gregthegeek.util.BufferedWriter;
 
 public class QueryGen {
     private static final String DIR = "/Users/greg/Documents/School/Science_Research/workspace/ODRA_enums_mbleja/greg/queries/";
@@ -169,12 +171,16 @@ public class QueryGen {
         p("indexNum", indexNum);
         p("rangeas" , rangeas);
         
-        BufferedWriter bw = new BufferedWriter(new FileWriter(DIR + "all.txt"));
+        BufferedWriter bw = new BufferedWriter(DIR + "all.txt");
+        bw.writeln("$encoding = utf-8");
+        bw.newLine();
+        bw.writeln("set test plaintimes");
+        bw.newLine();
         for(Entry<String,Query> e : queries.entrySet()) {
             String name = e.getKey();
             String fileName = name + ".txt";
             
-            QueryWriter qw = new QueryWriter(new FileWriter(DIR + fileName), 10, name);
+            QueryWriter qw = new QueryWriter(DIR + fileName, 10, name);
             qw.write(e.getValue());
             qw.close();
             
