@@ -23,7 +23,7 @@ public class Constants {
     protected static final Object[][] STR_REGEX_SING = new Object[1024][2]; // uses _
     protected static final Object[][] STR_REGEX_MULT = new Object[1024][2]; // uses %
     
-    private   static final String[]   WHERE_CONDS = {"hire_date > 1980-01-01", "sal > 500", "position = \"tester\"", "sex = \"female\"", "lname = \"Brooks\"", "fName = \"Ava\""};
+    private   static final String[]   WHERE_CONDS = {"hire_date < 1980-01-01", "sal > 500", "position = \"tester\"", "sex = \"male\"", "lname = \"Acosta\"", "fName = \"Clayton\""};
     protected static final Object[][] WHERE_ARGS  = new Object[WHERE_CONDS.length][1];
     
     static {
@@ -82,13 +82,13 @@ public class Constants {
         
         StringBuilder sbEmpSings = new StringBuilder();
         for(int i=0; i<EMP_STRUCT_SINGS.length; i++) {
-            sbEmpSings.append("Emp[").append(i).append("], ");
+            sbEmpSings.append("Emp[").append(i+1).append("], ");
             EMP_STRUCT_SINGS[i] = new Object[] {sbEmpSings.substring(0, sbEmpSings.length() - 2)};
         }
         
         StringBuilder sbPartSings = new StringBuilder();
         for(int i=0; i<PART_STRUCT_SINGS.length; i++) {
-            sbPartSings.append("Part[").append(i).append("], ");
+            sbPartSings.append("Part[").append(i+1).append("], ");
             PART_STRUCT_SINGS[i] = new Object[] {sbPartSings.substring(0, sbPartSings.length() - 2)};
         }
         

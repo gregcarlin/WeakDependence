@@ -23,7 +23,7 @@ public class QueryGen {
         Query mul = new Query("%d * %d" , NUM_PAIRS);
         Query div = new Query("%d / %d" , NUM_PAIRS);
         Query mod = new Query("%d %% %d", NUM_PAIRS);
-        Query neg = new Query("-%d"     , NUM_SINGS);
+        Query neg = new Query("-(%d)"   , NUM_SINGS);
         
         n("add", add);
         n("sub", sub);
@@ -86,11 +86,11 @@ public class QueryGen {
         n("now", now);
         n("dform", dform);
         
-        Query sum = new Query("sum %s"  , STRUCT_SINGS);
-        Query cnt = new Query("count %s", STRUCT_SINGS);
-        Query min = new Query("min %s"  , STRUCT_SINGS);
-        Query max = new Query("max %s"  , STRUCT_SINGS);
-        Query avg = new Query("avg %s"  , STRUCT_SINGS);
+        Query sum = new Query("sum(bag(%s))"  , STRUCT_SINGS);
+        Query cnt = new Query("count(bag(%s))", STRUCT_SINGS);
+        Query min = new Query("min(bag(%s))"  , STRUCT_SINGS);
+        Query max = new Query("max(bag(%s))"  , STRUCT_SINGS);
+        Query avg = new Query("avg(bag(%s))"  , STRUCT_SINGS);
         
         n("sum", sum);
         n("cnt", cnt);
@@ -127,13 +127,13 @@ public class QueryGen {
         e("exists"   , exists);
         
         Query dot     = new Query("bag(%s).sal"                    , EMP_STRUCT_SINGS);
-        Query join    = new Query("bag(Emp[1],Emp[2]) join bag(%s)", EMP_STRUCT_SINGS);
+        Query join    = new Query("bag(0, 1, 2, 3) join bag(%s)"   , STRUCT_SINGS);
         Query where   = new Query("Emp where %s"                   , WHERE_ARGS);
         Query forall  = new Query("forall(bag(%s) as x) (x < 63)"  , STRUCT_SINGS);
         Query forsome = new Query("forsome(bag(%s) as x) (x < 63)" , STRUCT_SINGS);
         
         e("dot"    , dot);
-        e("join"   , join);
+        n("join"   , join);
         e("where"  , where);
         n("forall" , forall);
         n("forsome", forsome);
@@ -149,10 +149,10 @@ public class QueryGen {
         e("orderbyStr" , orderbyStr);
         
         // test on depth/breadth?
-        Query closeBy   = new Query("(bag(%s)) close by (component.leadsTo.Part)"       , PART_STRUCT_SINGS);
-        Query leavesBy  = new Query("(bag(%s)) leaves by (component.leadsTo.Part)"      , PART_STRUCT_SINGS);
-        Query closeUBy  = new Query("(bag(%s)) close unique by (component.leadsTo.Part" , PART_STRUCT_SINGS);
-        Query leavesUBy = new Query("(bag(%s)) leaves unique by (component.leadsTo.Part", PART_STRUCT_SINGS);
+        Query closeBy   = new Query("(bag(%s)) close by (component.leadsTo.Part)"        , PART_STRUCT_SINGS);
+        Query leavesBy  = new Query("(bag(%s)) leaves by (component.leadsTo.Part)"       , PART_STRUCT_SINGS);
+        Query closeUBy  = new Query("(bag(%s)) close unique by (component.leadsTo.Part)" , PART_STRUCT_SINGS);
+        Query leavesUBy = new Query("(bag(%s)) leaves unique by (component.leadsTo.Part)", PART_STRUCT_SINGS);
         
         p("closeby"       , closeBy);
         p("leavesby"      , leavesBy);
